@@ -4,7 +4,7 @@ import {customElement, property} from 'lit/decorators.js'
 @customElement('onyks-button-group')
 export class Onyks_Button_Group extends LitElement 
 {
-    @property({type: Boolean})
+    @property({type: Boolean, reflect: true})
     vertical = false
 
     render() 

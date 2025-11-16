@@ -4,13 +4,13 @@ import {customElement, property} from 'lit/decorators.js'
 @customElement('onyks-button')
 export class Onyks_Button extends LitElement 
 {
-    @property({type: String})
+    @property({type: String, reflect: true})
     size = "m"
 
-    @property({type: String})
+    @property({type: String, reflect: true})
     background = "red"
 
-    @property({type: String})
+    @property({type: String, reflect: true})
     href = ""
 
     render() 
