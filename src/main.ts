@@ -1,45 +1,99 @@
-const modules = import.meta.glob('./components/*.ts');
+import hljs from 'highlight.js';
+import 'highlight.js/styles/github-dark.css';
 
-for (const path in modules) 
+interface PageModule 
 {
-    modules[path]().then((mod) => 
-    {
-        console.log(`Załadowano moduł: ${path}`);
-    });
+  init?: () => void;
 }
 
-let examples = Object.keys(import.meta.glob('./examples/*.html'));
-let nav = document.querySelector('.nav')
-let content = document.querySelector('.content')
+const menuContainer = document.querySelector<HTMLElement>('#menu');
+const contentContainer = document.querySelector<HTMLElement>('#app');
 
-nav.addEventListener('click', async (e) => 
+const htmlModules = import.meta.glob('./examples/*.html', 
 {
-    
-    if(e.target.classList.contains('nav-element'))
+  query: '?raw',
+  import: 'default'
+}) as Record<string, () => Promise<string>>;
+
+const scriptModules = import.meta.glob('./components/*.ts') as Record<string, () => Promise<PageModule>>;
+
+const pageNames = Object.keys(htmlModules).map(path => path.replace('./examples/', '').replace('.html', ''));
+
+async function navigateTo(pageName: string, updateHistory = true): Promise<void> 
+{
+  if (!contentContainer) return;
+
+  const htmlPath = `./examples/${pageName}.html`;
+  const scriptPath = `./components/${pageName}.ts`;
+
+  if (htmlModules[htmlPath]) 
+  {
+    try 
     {
-        
-        let temp = e.target.dataset.target
-        temp = temp.replace('./', '')
-        temp = "src/" + temp
+      const rawHtml = await htmlModules[htmlPath]();
 
-        const response = await fetch(temp);
-        const html = await response.text();
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = rawHtml;
 
-        content.innerHTML = html;
+      tempDiv.querySelectorAll('pre code').forEach((block) => 
+      {
+        const codeContent = block.innerHTML;
+        block.textContent = codeContent.trim();
+        hljs.highlightElement(block as HTMLElement);
+      });
+
+      contentContainer.innerHTML = '';
+      contentContainer.appendChild(tempDiv);
+
+      if (updateHistory) 
+      {
+        window.history.pushState({ pageName }, "", `/${pageName}`);
+      }
+
+      if (scriptModules[scriptPath]) 
+      {
+        const mod = await scriptModules[scriptPath]();
+        if (mod && typeof mod.init === 'function') 
+        {
+          mod.init();
+        }
+      }
+    } 
+    catch (err) 
+    {
+      console.error("Błąd ładowania strony:", err);
+      contentContainer.innerHTML = "<h1>Błąd ładowania treści</h1>";
     }
+  } 
+  else 
+  {
+    contentContainer.innerHTML = "<h1>404 - Nie znaleziono</h1>";
+  }
+}
+
+function setupMenu(): void 
+{
+  if (!menuContainer) return;
+  pageNames.forEach(name => 
+  {
+    const btn = document.createElement('a');
+    btn.textContent = name.toUpperCase();
+    btn.style.cssText = "margin-right: 15px; cursor: pointer; color: blue;";
+    btn.onclick = (e) => 
+    {
+      e.preventDefault();
+      navigateTo(name);
+    };
+    menuContainer.appendChild(btn);
+  });
+}
+
+window.addEventListener('popstate', (e) => 
+{
+  const pageName = e.state?.pageName || 'start';
+  navigateTo(pageName, false);
 });
 
-for(let el of examples)
-{
-    let temp = document.createElement('div')
-    temp.classList.add('nav-element')
-    temp.dataset.target = el
-    temp.innerText = el.replace('./examples/', "").replace('.html', "").toUpperCase()
-    nav.appendChild(temp)
-}
-
-let logo = document.querySelector('.logo')
-logo.addEventListener('click', (e) =>
-{
-    nav?.classList.toggle('closed')
-})
+setupMenu();
+const initialPath = window.location.pathname.slice(1) || 'start';
+navigateTo(initialPath);

@@ -1,5 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
+import "@fontsource/poppins/400.css";
 
 @customElement('onyks-button')
 export class Onyks_Button extends LitElement 
@@ -21,16 +22,17 @@ export class Onyks_Button extends LitElement
         }
         else
         {
-            return html`<a class="${this.background} ${this.size}" href="${this.href}"><slot></slot></button>`
+            return html`<a class="${this.background} ${this.size}" href="${this.href}"><slot></slot></a>`
         }
     }
 
     static styles = css`
         button, a
         {
+            font-family: 'Poppins', sans-serif;
             text-decoration: none;
             padding: 0.5rem 1rem;
-            border-radius: 0.25rem;
+            border-radius: 0.5rem;
             width: inherit;
             border: 0;
             cursor: pointer;
@@ -58,22 +60,22 @@ export class Onyks_Button extends LitElement
 
         .s
         {
-            font-size: 12px;
+            font-size: 14px;
         }
 
         .m
         {
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .l
         {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .xl
         {
-            font-size: 18px;
+            font-size:  20px;
         }
 
         :host
@@ -84,12 +86,10 @@ export class Onyks_Button extends LitElement
 }
 
 
-
-
 declare global 
 {
-  interface HTMLElementTagNameMap 
-  {
-    'onyks-button': Onyks_Button
-  }
+    interface HTMLElementTagNameMap 
+    {
+        'onyks-button': Onyks_Button
+    }
 }
