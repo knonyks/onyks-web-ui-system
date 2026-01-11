@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import "@fontsource/poppins/400.css";
+import '@fontsource/inter/400.css';
 
 @customElement('onyks-textfield')
 export class Onyks_Textfield extends LitElement 
@@ -39,60 +39,47 @@ export class Onyks_Textfield extends LitElement
     static styles = css`
         input
         {
-            font-family: 'Poppins', sans-serif;
-            border: 0.1px solid black;
-            border-radius: 5px;
-            padding: 0.5rem 1rem;
-            outline: none;
+            box-sizing: border-box;
+            font-family: 'Inter';
+            border: 1px solid black;
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-decoration: none;
+            cursor: pointer;
             display: block;
-            max-width: 200px;
-        }
-
-        .blue
-        {
-            background-color: #405affff;
-            color: white;
-        }
-
-        .green
-        {
-            background-color: #40ff76ff;
-            color: black;
-        }
-
-        .red
-        {
-            background-color: #ff4040ff;
-            color: white;
+            height: fit-content;
+            width: fit-content;
+            outline: none;
         }
 
         .s
         {
-            font-size: 14px;
+            font-size: var(--font-sm);
         }
 
         .m
         {
-            font-size: 16px;
+            font-size: var(--font-md);
         }
 
         .l
         {
-            font-size: 18px;
+            font-size: var(--font-lg);
         }
 
         .xl
         {
-            font-size:  20px;
+            font-size:  var(--font-xl);
         }
 
         :host
         {
-            width: 100%;
+            height: fit-content;
+            display: block;
+            width: fit-content;
         }
     `
 }
-
 
 declare global 
 {

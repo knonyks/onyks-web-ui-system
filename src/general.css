@@ -1,24 +1,36 @@
+*
+{
+  font-family: 'Inter';
+}
+
 :root 
 {
-  --primary-color: #3b82f6;
-  --background-color: #ffffff;
-  --surface-color: #f3f4f6;
-  --text-color: #1f2937;
-  --button-text: #ffffff;
+  --color-background: #1f1f1f;
+  --color-primary: #ff6262;
+
+  --color-blue: #003cff;
+  --color-green: #3eff6b;
+  --color-red: #ff0019;
+
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  --font-sm: 12px;
+  --font-md: 16px;
+  --font-lg: 20px;
+  --font-xl: 24px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --logo-invert: invert(1);
 }
 
-body.dark-theme 
+[data-theme="dark"]
 {
-  --primary-color: #60a5fa;
-  --background-color: #111827;
-  --surface-color: #1f2937;
-  --text-color: #f9fafb;
-  --button-text: #000000;
-}
-
-body 
-{
-    background-color: var(--background-color);
-    color: var(--text-color);
-    transition: background-color 0.3s ease, color 0.3s ease;
+  --color-background: #ffffff;
+  --logo-invert: invert(0);
 }

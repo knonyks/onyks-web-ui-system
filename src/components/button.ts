@@ -1,6 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import "@fontsource/poppins/400.css";
+import '@fontsource/inter/400.css';
 
 @customElement('onyks-button')
 export class Onyks_Button extends LitElement 
@@ -29,62 +29,64 @@ export class Onyks_Button extends LitElement
     static styles = css`
         button, a
         {
-            font-family: 'Poppins', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Inter';
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            padding: var(--spacing-sm) var(--spacing-md);
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.5rem;
-            width: inherit;
-            border: 0;
             cursor: pointer;
-            margin: 0;
             display: block;
+            height: fit-content;
+            width: fit-content;
         }
 
         .blue
         {
-            background-color: #405affff;
+            background-color: var(--color-blue);
             color: white;
         }
 
         .green
         {
-            background-color: #40ff76ff;
+            background-color: var(--color-green);
             color: black;
         }
 
         .red
         {
-            background-color: #ff4040ff;
+            background-color: var(--color-red);
             color: white;
         }
 
         .s
         {
-            font-size: 14px;
+            font-size: var(--font-sm);
         }
 
         .m
         {
-            font-size: 16px;
+            font-size: var(--font-md);
         }
 
         .l
         {
-            font-size: 18px;
+            font-size: var(--font-lg);
         }
 
         .xl
         {
-            font-size:  20px;
+            font-size: var(--font-xl);
         }
 
         :host
         {
+            height: fit-content;
+            display: block;
             width: fit-content;
         }
     `
 }
-
 
 declare global 
 {
