@@ -1,6 +1,5 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import '@fontsource/inter/400.css';
 
 @customElement('onyks-logo')
 export class Onyks_Logo extends LitElement 

@@ -1,6 +1,5 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import '@fontsource/inter/400.css';
 
 @customElement('onyks-button')
 export class Onyks_Button extends LitElement 
@@ -30,7 +29,6 @@ export class Onyks_Button extends LitElement
         button, a
         {
             box-sizing: border-box;
-            font-family: 'Inter';
             border: 1px solid transparent;
             border-radius: var(--radius-sm);
             padding: var(--spacing-sm) var(--spacing-md);

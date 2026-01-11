@@ -1,6 +1,5 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
-import '@fontsource/inter/400.css';
 
 @customElement('onyks-textfield')
 export class Onyks_Textfield extends LitElement 
@@ -40,7 +39,6 @@ export class Onyks_Textfield extends LitElement
         input
         {
             box-sizing: border-box;
-            font-family: 'Inter';
             border: 1px solid black;
             border-radius: var(--radius-sm);
             padding: var(--spacing-sm) var(--spacing-md);
