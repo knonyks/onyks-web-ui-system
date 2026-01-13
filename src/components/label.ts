@@ -13,7 +13,7 @@ export class Onyks_Label extends LitElement
     render() 
     {
         return html`
-            <label for="${this.for}" class="${this.size}><slot></slot></label>
+            <label for="${this.for}" class="${this.size}"><slot></slot></label>
         `
     }
 
@@ -21,12 +21,15 @@ export class Onyks_Label extends LitElement
         label
         {
             box-sizing: border-box;
+            outline: none;
             border: 1px solid transparent;
-            padding: var(--spacing-sm) 0;
-            text-decoration: none;
-            display: block;
-            height: 100%;
             width: 100%;
+            height: 100%;
+            margin: 0; 
+            padding: var(--spacing-sm) 0;
+            display: inline-flex;
+            font-family: var(--font);
+            color: var(--color);
         }
 
         .s
@@ -54,6 +57,7 @@ export class Onyks_Label extends LitElement
             height: fit-content;
             display: block;
             width: fit-content;
+            box-sizing: border-box;
         }
 
         *

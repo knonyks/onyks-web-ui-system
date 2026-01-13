@@ -39,15 +39,14 @@ export class Onyks_Textfield extends LitElement
         input
         {
             box-sizing: border-box;
-            border: 1px solid black;
-            border-radius: var(--radius-sm);
-            padding: var(--spacing-sm) var(--spacing-md);
-            text-decoration: none;
-            cursor: pointer;
-            display: block;
-            height: 100%;
-            width: 100%;
             outline: none;
+            border: 1px solid #000000;
+            width: 100%;
+            height: 100%;
+            margin: 0; 
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
         }
 
         .s
@@ -75,6 +74,7 @@ export class Onyks_Textfield extends LitElement
             height: fit-content;
             display: block;
             width: fit-content;
+            box-sizing: border-box;
         }
 
         *

@@ -29,14 +29,16 @@ export class Onyks_Button extends LitElement
         button, a
         {
             box-sizing: border-box;
+            outline: none;
             border: 1px solid transparent;
-            border-radius: var(--radius-sm);
-            padding: var(--spacing-sm) var(--spacing-md);
-            text-decoration: none;
-            cursor: pointer;
-            display: block;
-            height: 100%;
             width: 100%;
+            height: 100%;
+            margin: 0; 
+            padding: var(--spacing-sm) var(--spacing-md);
+            display: inline-flex;
+            border-radius: var(--radius-sm);
+            font-family: var(--font);
+            text-decoration: none;
         }
 
         .blue
@@ -82,11 +84,13 @@ export class Onyks_Button extends LitElement
             height: fit-content;
             display: block;
             width: fit-content;
+            box-sizing: border-box;
         }
 
         *
         {
             font-family: var(--font);
+            line-height: 1.5;
         }
     `
 }
