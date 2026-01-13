@@ -22,7 +22,7 @@ export class Onyks_Label extends LitElement
         {
             box-sizing: border-box;
             border: 1px solid transparent;
-            padding: var(--spacing-sm) var(--spacing-md);
+            padding: var(--spacing-sm) 0;
             text-decoration: none;
             display: block;
             height: 100%;

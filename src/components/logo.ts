@@ -1,5 +1,6 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
+import logo_path from '../assets/logo.png';
 
 @customElement('onyks-logo')
 export class Onyks_Logo extends LitElement 
@@ -9,7 +10,7 @@ export class Onyks_Logo extends LitElement
 
     render() 
     {
-        return html`<img src="src/assets/logo.png" alt="ONYKS Logo" width="${this.width}" class="inverted">`;
+        return html`<img src="${logo_path}" alt="ONYKS Logo" width="${this.width}" class="inverted">`;
     }
 
     static styles = css`
