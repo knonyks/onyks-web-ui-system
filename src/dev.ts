@@ -1,7 +1,7 @@
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
-import {Onyks_Nav} from './components/nav';
-import { Onyks_Logo } from './components/logo';
+import './components/nav';
+import './components/logo';
 
 interface PageModule 
 {
