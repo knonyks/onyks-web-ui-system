@@ -13,7 +13,7 @@ export class Onyks_Label extends LitElement
     render() 
     {
         return html`
-            <label for="${this.for}"><slot></slot></label>
+            <label for="${this.for}" class="${this.size}><slot></slot></label>
         `
     }
 

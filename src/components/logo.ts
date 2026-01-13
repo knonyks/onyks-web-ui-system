@@ -17,11 +17,19 @@ export class Onyks_Logo extends LitElement
         img
         {
             display: block;
+            width: 100%;
         }
 
         .inverted
         {
             filter: var(--logo-invert);
+        }
+
+        :host
+        {
+            height: fit-content;
+            display: block;
+            width: fit-content;
         }
     `
 }
