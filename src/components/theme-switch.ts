@@ -1,4 +1,4 @@
-import {LitElement, css, html} from 'lit'
+import {LitElement, css} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
 
 @customElement('onyks-theme-switch')
