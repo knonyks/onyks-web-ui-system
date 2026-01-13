@@ -35,8 +35,8 @@ export class Onyks_Button extends LitElement
             text-decoration: none;
             cursor: pointer;
             display: block;
-            height: fit-content;
-            width: fit-content;
+            height: 100%;
+            width: 100%;
         }
 
         .blue
@@ -82,6 +82,11 @@ export class Onyks_Button extends LitElement
             height: fit-content;
             display: block;
             width: fit-content;
+        }
+
+        *
+        {
+            font-family: var(--font);
         }
     `
 }
