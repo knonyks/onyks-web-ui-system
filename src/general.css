@@ -3,7 +3,11 @@
 :root 
 {
   --font: 'Inter';
-  --color-background: #1f1f1f;
+  --background-primary: #1f1f1f;
+  --background-secondary: #333333;
+
+
+
   --color: #ffffff;
 
 
@@ -44,11 +48,12 @@
 
 [data-theme="light"]
 {
-  --color-background: #ffffff;
+  --background-primary: #ffffff;
   --logo-invert: invert(1);
 }
 
 body
 {
-  background-color: var(--color-background);
+  background-color: var(--background-primary);
+  margin: 0;
 }

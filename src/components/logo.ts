@@ -5,12 +5,9 @@ import logo_path from '../assets/logo.png';
 @customElement('onyks-logo')
 export class Onyks_Logo extends LitElement 
 {
-    @property({type: String, reflect: true})
-    width = "200px"
-
-    render() 
+    render()
     {
-        return html`<img src="${logo_path}" alt="ONYKS Logo" width="${this.width}" class="inverted">`;
+        return html`<img src="${logo_path}" alt="ONYKS Logo" class="inverted">`;
     }
 
     static styles = css`
@@ -18,6 +15,7 @@ export class Onyks_Logo extends LitElement
         {
             display: block;
             width: 100%;
+            height: 100%;
         }
 
         .inverted

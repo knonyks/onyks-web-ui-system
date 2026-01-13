@@ -39,6 +39,7 @@ export class Onyks_Button extends LitElement
             border-radius: var(--radius-sm);
             font-family: var(--font);
             text-decoration: none;
+            text-align: center;
         }
 
         .blue

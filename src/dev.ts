@@ -1,5 +1,7 @@
 import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
+import {Onyks_Nav} from './components/nav';
+import { Onyks_Logo } from './components/logo';
 
 interface PageModule 
 {
@@ -76,9 +78,9 @@ function setupMenu(): void
   if (!menuContainer) return;
   pageNames.forEach(name => 
   {
-    const btn = document.createElement('a');
+    const btn = document.createElement('onyks-nav-option');
     btn.textContent = name.toUpperCase();
-    btn.style.cssText = "margin-right: 15px; cursor: pointer; color: blue;";
+    // btn.style.cssText = "margin-right: 15px; cursor: pointer; color: blue;";
     btn.onclick = (e) => 
     {
       e.preventDefault();
