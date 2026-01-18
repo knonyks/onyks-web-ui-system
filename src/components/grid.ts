@@ -1,0 +1,112 @@
+import { LitElement, css, html } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+
+@customElement('onyks-grid')
+export class Onyks_Grid extends LitElement {
+    @property({ type: Number }) cols = 0;
+
+    static styles = css`
+        :host {
+            display: block;
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        .grid-container {
+            display: grid;
+            gap: 20px;
+            width: 100%;
+            /* Domyślnie responsywny (jeśli cols nie jest podane) */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    `;
+
+    render() {
+        const gridStyle = this.cols > 0 
+            ? `grid-template-columns: repeat(${this.cols}, 1fr);` 
+            : '';
+
+        return html`
+            <div class="grid-container" style="${gridStyle}">
+                <slot></slot>
+            </div>
+        `;
+    }
+}
+
+// --- KARTA ---
+@customElement('onyks-card')
+export class Onyks_Card extends LitElement {
+    @property({ type: String }) title = "";
+    
+    // ILE KOLUMN ZAJMUJE (Szerokość)
+    @property({ type: Number }) span = 1;
+    
+    // ILE WIERSZY ZAJMUJE (Wysokość)
+    @property({ type: Number }) rows = 1;
+
+    updated(changedProperties: Map<string, any>) {
+        if (changedProperties.has('span')) {
+            this.style.gridColumn = `span ${this.span}`;
+        }
+        if (changedProperties.has('rows')) {
+            this.style.gridRow = `span ${this.rows}`;
+        }
+    }
+
+    static styles = css`
+        :host {
+            display: flex;
+            flex-direction: column;
+            background-color: #232428;
+            border: 1px solid #2c2e33;
+            border-radius: 12px;
+            padding: 24px;
+            box-sizing: border-box;
+            color: #e1e1e6;
+            height: 100%; /* Rozciągnij się na całą wysokość wiersza */
+            font-family: sans-serif;
+            
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        :host(:hover) {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border-color: #fa5252;
+            z-index: 1; /* Żeby cień nie był przykryty przez inne karty */
+        }
+
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 1.25rem;
+            color: #fa5252;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+            display: block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #fa5252;
+        }
+
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+    `;
+
+    render() {
+        return html`
+            ${this.title ? html`<h2>${this.title}</h2>` : ''}
+            <div class="content"><slot></slot></div>
+        `;
+    }
+}
