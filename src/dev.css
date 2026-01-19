@@ -13,8 +13,11 @@ main
   min-height: 300px;
 }
 
-
-
+*
+{
+  font-family: var(--font);
+  color: var(--color);
+}
 
 .fade-in 
 {
@@ -36,15 +39,16 @@ main
   }
 }
 
-onyks-nav
+.nav
 {
   position: sticky;
   top: 0;
   margin: 0;
   width: auto;
+  z-index: 100000;
 }
 
-onyks-logo
+onyks-nav > onyks-logo
 {
   position: absolute;
   left: 0;
@@ -52,4 +56,5 @@ onyks-logo
   box-sizing: border-box;
   padding: var(--spacing-md);
   top: 0;
+  width: fit-content;
 }

@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit'
-import {customElement} from 'lit/decorators.js'
+import {customElement, property} from 'lit/decorators.js'
 import logo_path from '../assets/logo.png';
 
 @customElement('onyks-logo')
@@ -7,29 +7,24 @@ export class Onyks_Logo extends LitElement
 {
     render()
     {
-        return html`<img src="${logo_path}" alt="ONYKS Logo" class="inverted">`;
+        return html`<img src="${logo_path}" alt="ONYKS Logo">`;
     }
 
     static styles = css`
-        img
+        :host 
         {
             display: block;
-            width: 100%;
-            height: 100%;
         }
 
-        .inverted
+        img 
         {
-            filter: var(--logo-invert);
-        }
-
-        :host
-        {
-            height: fit-content;
             display: block;
-            width: fit-content;
+            width: inherit;
+            height: inherit;
+            filter: var(--logo-filter);
+            transition: filter 0.3s ease;
         }
-    `
+    `;
 }
 
 declare global 

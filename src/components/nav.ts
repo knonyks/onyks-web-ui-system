@@ -18,56 +18,51 @@ export class Onyks_Nav extends LitElement
     *
     {
         font-family: var(--font);
+        color: var(--text-1)
     }
         
     :host 
     {
       display: block;
       width: 100%;
-      --nav-bg: #111;
-      --nav-text: #fff;
       --nav-height: 64px;
-      --nav-padding: 0 24px;
-      --nav-radius: 16px;
-      --accent-color: #4CAF50;
-      font-size: var(--font-m);
+      font-size: var(--size-m);
       position: relative;
-      z-index: 1000;
     }
 
     :host([size="s"]) 
     { 
-      font-size: var(--font-sm); --nav-height: 50px; 
+      font-size: var(--size-sm); --nav-height: 50px; 
     }
     
     :host([size="m"])  
     { 
-      font-size: var(--font-md); 
+      font-size: var(--size-md); 
       --nav-height: 64px;
     }
     
     :host([size="l"])  
     { 
-      font-size: var(--font-lg); 
+      font-size: var(--size-lg); 
       --nav-height: 72px; 
     }
     
     :host([size="xl"]) 
     { 
-      font-size: var(--font-xl); 
+      font-size: var(--size-xl); 
       --nav-height: 80px;
     }
 
     nav 
     {
-      background-color: var(--background-secondary);
+      background-color: var(--surface-2);
       align-items: center;
-      color: var(--nav-text);
+      color: var(--text-1);
       height: var(--nav-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--nav-padding);
+      // padding: 0 var(--spacing-sm);
       box-sizing: border-box;
       position: relative; 
       transition: border-radius 0.2s ease-in-out;
@@ -116,12 +111,12 @@ export class Onyks_Nav extends LitElement
 @customElement('onyks-nav-content')
 export class Onyks_Nav_Content extends LitElement 
 {
-  @property({ type: Number }) mobilebreakpoint = 900;
-  @property({ type: Number }) maxviewitems = 3;
+  @property({ type: Number, reflect: true }) mobilebreakpoint = 900;
+  @property({ type: Number, reflect: true  }) maxviewitems = 3;
 
   @state() private is_mobile = false;
   @state() private is_menu_open = false;
-  @state() private currentPage = 0;
+  @state() private current_page = 0;
 
   static styles = css`
     :host 
@@ -132,10 +127,11 @@ export class Onyks_Nav_Content extends LitElement
       flex: 1;
       height: 100%;
       justify-content: center;
+      z-index: 1;
     }
 
-    /* ZMIANA: Gdy host ma atrybut mobile-mode (nadawany w JS), wyrównujemy do prawej (end) */
-    :host([mobile-mode]) {
+    :host([mobile-mode]) 
+    {
       justify-content: flex-end;
     }
 
@@ -147,11 +143,12 @@ export class Onyks_Nav_Content extends LitElement
 
     .next-btn 
     {
-      background: red;
+      background: var(--surface-3);
       border: none;
       color: inherit;
       height: 100%;
-      width: 32px;
+      width: fit-content;
+      padding: 0 var(--spacing-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -205,83 +202,99 @@ export class Onyks_Nav_Content extends LitElement
       top: 100%; 
       left: 0;
       width: 100%; 
-      
       display: grid;
       grid-template-rows: 0fr;
       transition: grid-template-rows 0.3s ease-out;
       
-      background-color: var(--nav-bg); 
+      background-color: var(--surface-1); 
       z-index: 999;
       
       box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
     
-    .mobile-dropdown-wrapper.open {
+    .mobile-dropdown-wrapper.open 
+    {
       grid-template-rows: 1fr;
       border-top: 1px solid rgba(255,255,255,0.1); 
     }
 
-    :host-context(onyks-nav[rounded]) .mobile-dropdown-wrapper.open {
-      border-bottom-left-radius: var(--nav-radius);
-      border-bottom-right-radius: var(--nav-radius);
+    :host-context(onyks-nav[rounded]) .mobile-dropdown-wrapper.open 
+    {
+      border-bottom-left-radius: var(--radius-xl);
+      border-bottom-right-radius: var(--radius-xl);
     }
 
-    .dropdown-inner {
+    .dropdown-inner 
+    {
       overflow: hidden;
     }
     
-    .dropdown-content-scroll {
-      max-height: 60vh;
+    .dropdown-content-scroll 
+    {
+      max-height: 300px;
       overflow-y: auto;
       padding-bottom: 10px;
     }
 
-    ::slotted(*) { display: flex; }
+    ::slotted(*) 
+    { 
+      display: flex; 
+    }
   `;
 
-  constructor() {
+  constructor() 
+  {
     super();
     this._handleResize = this._handleResize.bind(this);
     this._handleOptionClick = this._handleOptionClick.bind(this);
   }
 
-  connectedCallback() {
+  connectedCallback() 
+  {
     super.connectedCallback();
     this._checkMobile();
     window.addEventListener('resize', this._handleResize);
     this.addEventListener('click', this._handleOptionClick);
   }
 
-  disconnectedCallback() {
+  disconnectedCallback() 
+  {
     window.removeEventListener('resize', this._handleResize);
     this.removeEventListener('click', this._handleOptionClick);
     super.disconnectedCallback();
   }
 
-  protected updated(_changedProperties: PropertyValueMap<any>): void {
-    if (_changedProperties.has('maxviewitems') || _changedProperties.has('currentPage') || _changedProperties.has('is_mobile')) {
+  protected updated(_changedProperties: PropertyValueMap<any>): void 
+  {
+    if (_changedProperties.has('maxviewitems') || _changedProperties.has('current_page') || _changedProperties.has('is_mobile')) 
+    {
       this._updateVisibility();
     }
   }
 
-  private _handleResize() {
+  private _handleResize() 
+  {
     this._checkMobile();
   }
 
-  private _checkMobile() {
+  private _checkMobile() 
+  {
     const wasMobile = this.is_mobile;
     this.is_mobile = window.innerWidth <= this.mobilebreakpoint;
 
-    // ZMIANA: Ręczne nadawanie atrybutu hostowi, aby CSS mógł zmienić justify-content
-    if (this.is_mobile) {
+    if (this.is_mobile) 
+    {
       this.setAttribute('mobile-mode', '');
-    } else {
+    } 
+    else 
+    {
       this.removeAttribute('mobile-mode');
     }
 
-    if (wasMobile !== this.is_mobile) {
+    if (wasMobile !== this.is_mobile) 
+    {
       this.toggleMenu(false);
-      this.currentPage = 0;
+      this.current_page = 0;
       this.requestUpdate(); 
     }
   }
@@ -328,31 +341,37 @@ export class Onyks_Nav_Content extends LitElement
         el.style.height = '50px'; 
         el.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
         el.style.padding = '0'; 
-      } else {
+      } 
+      else 
+      {
         el.style.width = '';
         el.style.height = '100%';
         el.style.borderBottom = '';
-        const start = this.currentPage * limit;
+        const start = this.current_page * limit;
         const end = start + limit;
         el.style.display = (index >= start && index < end) ? '' : 'none';
       }
     });
   }
 
-  private _nextPage = (e: Event) => {
+  private _nextPage = (e: Event) => 
+  {
     e.stopPropagation();
     const elements = this._slottedElements;
     const limit = Number(this.maxviewitems);
     if (!elements.length) return;
     const totalPages = Math.ceil(elements.length / limit);
-    this.currentPage = (this.currentPage + 1) % totalPages;
+    this.current_page = (this.current_page + 1) % totalPages;
   };
 
-  private _handleOptionClick(e: Event) {
+  private _handleOptionClick(e: Event) 
+  {
     const target = e.target as HTMLElement;
     const option = target.closest('onyks-nav-option');
-    if (option && option instanceof Onyks_Nav_Option) {
-      this._slottedElements.forEach(el => {
+    if (option && option instanceof Onyks_Nav_Option) 
+    {
+      this._slottedElements.forEach(el => 
+      {
         if (el instanceof Onyks_Nav_Option) el.selected = false;
       });
       option.selected = true;
@@ -360,7 +379,8 @@ export class Onyks_Nav_Content extends LitElement
     }
   }
 
-  render() {
+  render() 
+  {
     const elements = this._slottedElements;
     const limit = Number(this.maxviewitems);
     const showNextBtn = !this.is_mobile && elements.length > limit;
@@ -394,29 +414,44 @@ export class Onyks_Nav_Content extends LitElement
   }
 }
 
-
 @customElement('onyks-nav-option')
-export class Onyks_Nav_Option extends LitElement {
-  @property({ type: String }) href = '';
-  @property({ type: Boolean, reflect: true }) selected = false;
+export class Onyks_Nav_Option extends LitElement 
+{
+  @property({type: String}) href = '';
+  @property({type: Boolean, reflect: true}) selected = false;
 
   static styles = css`
-    :host { display: block; cursor: pointer; }
+    :host 
+    { 
+      display: block; 
+      cursor: pointer; 
+    }
     
-    :host([selected]) .nav-item {
-      color: var(--accent-color, #4CAF50);
+    :host([selected]) .nav-item 
+    {
+      color: var(--color);
       background-color: rgba(255,255,255,0.05);
       font-weight: 600;
     }
     
-    @media (max-width: 900px) {
-       :host([selected]) .nav-item { border-left: 3px solid var(--accent-color, #4CAF50); }
-    }
-    @media (min-width: 901px) {
-       :host([selected]) .nav-item { border-bottom: 2px solid var(--accent-color, #4CAF50); }
+    @media (max-width: 900px) 
+    {
+      :host([selected]) .nav-item 
+      { 
+        border-left: 3px solid var(--accent); 
+      }
     }
 
-    .nav-item {
+    @media (min-width: 901px) 
+    {
+      :host([selected]) .nav-item 
+      { 
+        border-bottom: 2px solid var(--accent); 
+      }
+    }
+
+    .nav-item 
+    {
       padding: 0 20px;
       height: 100%;
       display: flex;
@@ -429,21 +464,27 @@ export class Onyks_Nav_Option extends LitElement {
       width: 100%;
       font-size: inherit;
     }
-    .nav-item:hover { background-color: rgba(255,255,255,0.1); }
+
+    .nav-item:hover 
+    { 
+      background-color: rgba(255,255,255,0.1); 
+    }
   `;
 
-  render() {
+  render() 
+  {
     return this.href 
       ? html`<a class="nav-item" href="${this.href}"><slot></slot></a>`
       : html`<div class="nav-item"><slot></slot></div>`;
   }
 }
+
 declare global 
 {
-    interface HTMLElementTagNameMap 
-    {
-      'onyks-nav': Onyks_Nav,
-      'onyks-nav-content': Onyks_Nav_Content,
-      "onyks-nav-option":Onyks_Nav_Option
-    }
+  interface HTMLElementTagNameMap 
+  {
+    'onyks-nav': Onyks_Nav,
+    'onyks-nav-content': Onyks_Nav_Content,
+    "onyks-nav-option":Onyks_Nav_Option
+  }
 }

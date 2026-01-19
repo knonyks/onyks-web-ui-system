@@ -1,97 +1,136 @@
 import {LitElement, css, html} from 'lit'
 import {customElement, property} from 'lit/decorators.js'
+import { classMap } from 'lit/directives/class-map.js';
 
 @customElement('onyks-button')
 export class Onyks_Button extends LitElement 
 {
     @property({type: String, reflect: true})
-    size = "m"
+    size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     @property({type: String, reflect: true})
-    background = "red"
+    background: "red" | "green" | "blue" = 'red';
 
     @property({type: String, reflect: true})
     href = ""
 
+    @property({ type: String })
+    type: 'button' | 'submit' | 'reset' = 'button';
+
+    @property({ type: Boolean, reflect: true})
+    disabled = false;
+
+
+
+
     render() 
     {
-        if(this.href == "")
-        {
-            return html`<button class="${this.background} ${this.size}"><slot></slot></button>`
+        const classes = {
+            ['btn']: true,
+            [`size-${this.size}`]: true,
+            [`bg-${this.background}`]: true
         }
-        else
-        {
-            return html`<a class="${this.background} ${this.size}" href="${this.href}"><slot></slot></a>`
+
+        if (this.href) {
+            return html`
+                <a 
+                    class=${classMap(classes)} 
+                    href="${this.href}"
+                    aria-disabled="${this.disabled ? 'true' : 'false'}"  tabindex="${this.disabled ? '-1' : '0'}"
+                >
+                    <slot></slot>
+                </a>`;
         }
+
+        return html`
+            <button 
+                class=${classMap(classes)} 
+                type="${this.type}" 
+                ?disabled="${this.disabled}" >
+                <slot></slot>
+            </button>`;
+
     }
 
     static styles = css`
-        button, a
+        :host
+        {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .btn
         {
             box-sizing: border-box;
-            outline: none;
-            border: 1px solid transparent;
-            width: 100%;
-            height: 100%;
-            margin: 0; 
-            padding: var(--spacing-sm) var(--spacing-md);
             display: inline-flex;
-            border-radius: var(--radius-sm);
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 1px solid transparent;
+            cursor: pointer;
             font-family: var(--font);
             text-decoration: none;
             text-align: center;
+            border-radius: var(--radius-sm, 4px);
+            transition: background-color 0.2s, opacity 0.2s;
+            line-height: 1.5;
         }
 
-        .blue
+        .bg-blue
         {
             background-color: var(--color-blue);
             color: white;
         }
 
-        .green
+        .bg-green
         {
             background-color: var(--color-green);
             color: black;
         }
 
-        .red
+        .bg-red
         {
             background-color: var(--color-red);
             color: white;
         }
 
-        .s
+        .size-s
         {
-            font-size: var(--font-sm);
+            font-size: var(--size-sm);
         }
 
-        .m
+        .size-m
         {
-            font-size: var(--font-md);
+            font-size: var(--size-md);
         }
 
-        .l
+        .size-l
         {
-            font-size: var(--font-lg);
+            font-size: var(--size-lg);
         }
 
-        .xl
+        .size-xl
         {
-            font-size: var(--font-xl);
+            font-size: var(--size-xl);
         }
 
-        :host
+        .btn:focus-visible 
         {
-            height: fit-content;
-            display: block;
-            width: fit-content;
-            box-sizing: border-box;
+            outline: 2px solid var(--color-focus, blue);
+            outline-offset: 2px;
+        }
+
+        button:disabled, a[aria-disabled="true"]
+        {
+            opacity: 0.6;
+            pointer-events: none;
+            cursor: not-allowed;
         }
 
         *
         {
             font-family: var(--font);
-            line-height: 1.5;
         }
     `
 }
