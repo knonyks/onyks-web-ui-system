@@ -1,6 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
+// --- KONTENER SIATKI ---
 @customElement('onyks-grid')
 export class Onyks_Grid extends LitElement {
     @property({ type: Number }) cols = 0;
@@ -10,13 +11,22 @@ export class Onyks_Grid extends LitElement {
             display: block;
             width: 100%;
             margin-bottom: 2rem;
+            box-sizing: border-box;
         }
+        
         .grid-container {
             display: grid;
             gap: 20px;
             width: 100%;
-            /* Domyślnie responsywny (jeśli cols nie jest podane) */
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            box-sizing: border-box;
+        }
+
+        @media (max-width: 900px) {
+            .grid-container {
+                grid-template-columns: 1fr !important;
+                gap: 16px;
+            }
         }
     `;
 
@@ -37,11 +47,7 @@ export class Onyks_Grid extends LitElement {
 @customElement('onyks-card')
 export class Onyks_Card extends LitElement {
     @property({ type: String }) title = "";
-    
-    // ILE KOLUMN ZAJMUJE (Szerokość)
     @property({ type: Number }) span = 1;
-    
-    // ILE WIERSZY ZAJMUJE (Wysokość)
     @property({ type: Number }) rows = 1;
 
     updated(changedProperties: Map<string, any>) {
@@ -63,9 +69,11 @@ export class Onyks_Card extends LitElement {
             padding: 24px;
             box-sizing: border-box;
             color: #e1e1e6;
-            height: 100%; /* Rozciągnij się na całą wysokość wiersza */
             font-family: sans-serif;
-            
+            height: 100%;
+            overflow-wrap: anywhere; 
+            word-break: break-word;
+            min-width: 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
 
@@ -73,7 +81,15 @@ export class Onyks_Card extends LitElement {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
             border-color: #fa5252;
-            z-index: 1; /* Żeby cień nie był przykryty przez inne karty */
+            z-index: 1;
+        }
+
+        @media (max-width: 900px) {
+            :host {
+                grid-column: auto !important;
+                grid-row: auto !important;
+                transform: none !important; 
+            }
         }
 
         h2 {
@@ -84,6 +100,8 @@ export class Onyks_Card extends LitElement {
             position: relative;
             padding-bottom: 10px;
             display: block;
+            line-height: 1.3;
+            overflow-wrap: anywhere;
         }
 
         h2::after {
@@ -100,6 +118,13 @@ export class Onyks_Card extends LitElement {
             flex: 1;
             display: flex;
             flex-direction: column;
+            width: 100%;
+        }
+
+        ::slotted(img) {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
         }
     `;
 
