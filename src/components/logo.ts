@@ -1,5 +1,5 @@
 import {LitElement, css, html} from 'lit'
-import {customElement, property} from 'lit/decorators.js'
+import {customElement} from 'lit/decorators.js'
 import logo_path from '../assets/logo.png';
 
 @customElement('onyks-logo')
