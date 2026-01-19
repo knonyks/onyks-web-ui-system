@@ -3,14 +3,17 @@
   "private": true,
   "version": "0.3.0",
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "exports":
-  {
-    ".":"./dist/index.js",
-    "./general.css": "./dist/style.css"
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./general.css": "./src/general.css"
   },
-  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "types": "./src/index.ts", 
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
