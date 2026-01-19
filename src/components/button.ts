@@ -6,7 +6,7 @@ import { classMap } from 'lit/directives/class-map.js';
 export class Onyks_Button extends LitElement 
 {
     @property({type: String, reflect: true})
-    size: 's' | 'm' | 'l' | 'xl' = 'm';
+    accessor size: 's' | 'm' | 'l' | 'xl' = 'm';
 
     @property({type: String, reflect: true})
     background: "red" | "green" | "blue" = 'red';
