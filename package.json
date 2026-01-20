@@ -2,23 +2,28 @@
   "name": "onyks-web-ui-system",
   "version": "0.3.0",
   "type": "module",
+
   "main": "./dist/index.js",
   "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+
   "exports": 
   {
-    ".": {
+    ".": 
+    {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
     "./general.css": "./dist/general.css"
   },
-  "files": [
-    "dist"
-  ],
+
+  "files": ["dist"],
+
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "build:watch": "vite build --watch",
     "prepare": "npm run build"
   },
   "dependencies": {

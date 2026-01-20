@@ -28,4 +28,11 @@ export default defineConfig({
       tsconfigPath: './tsconfig.json' 
     }) 
   ],
+  esbuild: {
+    tsconfigRaw: {
+      compilerOptions: {
+        experimentalDecorators: true,
+      },
+    },
+  },
 });
