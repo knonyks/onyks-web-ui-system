@@ -20,6 +20,9 @@ export default defineConfig({
     rollupOptions: 
     {
       external: [/^lit/],
+      output: {
+        assetFileNames: 'general.css'
+      }
     }
   },
   plugins: [
