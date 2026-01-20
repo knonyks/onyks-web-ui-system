@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
 export default defineConfig({
   server: 
@@ -12,7 +13,7 @@ export default defineConfig({
     lib: 
     {
       entry: 'src/index.ts',
-      name: 'onyks-ui',
+      name: 'onyks-web-ui-system',
       fileName: 'index',
       formats: ['es'] 
     },
@@ -20,5 +21,11 @@ export default defineConfig({
     {
       external: [/^lit/],
     }
-  }
+  },
+  plugins: [
+    dts({ 
+      rollupTypes: true,
+      tsconfigPath: './tsconfig.json' 
+    }) 
+  ],
 });
