@@ -4,6 +4,12 @@ import {customElement, property} from 'lit/decorators.js'
 @customElement('onyks-textfield')
 export class Onyks_Textfield extends LitElement 
 {
+    static override shadowRootOptions = 
+    {
+        ...LitElement.shadowRootOptions,
+        delegatesFocus: true
+    };
+
     @property({type: String, reflect: true})
     size = "m"
 
@@ -17,10 +23,13 @@ export class Onyks_Textfield extends LitElement
     label = ""
 
     @property({type: String, reflect: true})
-    id = ""
-
-    @property({type: String, reflect: true})
     value = ""
+
+    private _handleInput(e: Event) 
+    {
+        const input = e.target as HTMLInputElement;
+        this.value = input.value;
+    }
 
     render() 
     {
@@ -30,7 +39,8 @@ export class Onyks_Textfield extends LitElement
             type="${this.type}"
             label="${this.label}"
             id="${this.id}"
-            value="${this.value}"
+            .value="${this.value}"
+            @input="${this._handleInput}"
             />
         `
     }
@@ -40,39 +50,39 @@ export class Onyks_Textfield extends LitElement
         {
             box-sizing: border-box;
             outline: none;
-            border: 1px solid #000000;
+            border: 1px solid #ccc;
             width: 100%;
             height: 100%;
             margin: 0; 
             padding: var(--spacing-sm);
             border-radius: var(--radius-sm);
-            font-family: var(--font);
+            font-family: inherit;
         }
 
         .s
         {
-            font-size: var(--font-sm);
+            font-size: var(--size-sm);
         }
 
         .m
         {
-            font-size: var(--font-md);
+            font-size: var(--size-md);
         }
 
         .l
         {
-            font-size: var(--font-lg);
+            font-size: var(--size-lg);
         }
 
         .xl
         {
-            font-size:  var(--font-xl);
+            font-size:  var(--size-xl);
         }
 
         :host
         {
             height: fit-content;
-            display: block;
+            display: inline-block;
             width: fit-content;
             box-sizing: border-box;
         }

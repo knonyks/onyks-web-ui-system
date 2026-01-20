@@ -14,6 +14,8 @@ export class Onyks_Logo extends LitElement
         :host 
         {
             display: block;
+            width: fit-content;
+            height: fit-content;
         }
 
         img 
